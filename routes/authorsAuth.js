@@ -5,10 +5,8 @@ const Authors = require("../model/Author");
 
 // LOGIN AUTHOR
 router.post("/login", async (req, res) => {
-  console.log(req.body, "reqbody");
   try {
     const author = await Authors.findOne({ email: req.body.email });
-    console.log(author, "author");
     !author && res.status(401).json("author not found");
     const unhashedPwd = cryptoJS.AES.decrypt(
       author.password,
@@ -19,13 +17,11 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(
       {
         id: author.id,
-        isAdmin: author.isAdmin,
       },
       process.env.ACCESS_KEY,
       { expiresIn: "3d" }
     );
-
-    res.status(200).send({ accessToken, ...author._doc });
+    res.send(accessToken);
   } catch (err) {
     res.status(500).json(err);
   }
