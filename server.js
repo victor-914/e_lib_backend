@@ -12,12 +12,13 @@ const corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
 };
+
 dotenv.config();
 const app = express();
 
 mongoose
   .connect(
-    `mongodb+srv://victor_3d:${process.env.MONGOBD_PWD}@cluster0.9jmrg9q.mongodb.net/${process.env.MONGOBD_PWD}?retryWrites=true&w=majority`,
+    `mongodb+srv://victor_3d:${process.env.MONGOBD_PWD}@cluster0.9jmrg9q.mongodb.net/${process.env.MONGOBD_NAME}?retryWrites=true&w=majority`,
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,
@@ -29,7 +30,6 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(cors());
-
 app.use(express.json());
 app.use(express());
 app.use(

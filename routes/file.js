@@ -20,6 +20,7 @@ router.post(
   async (req, res) => {
     const file = req.files;
     const name = Object.keys(file);
+    console.log(`POST REQ:@${file[name]}`);
 
     try {
       const cloudFile = await upload(file[name].tempFilePath);
@@ -31,6 +32,7 @@ router.post(
       });
       await newMedia.save();
       res.status(200).send(newMedia);
+      console.log(`POST REQ:@${file[name]}: SUCCESSFUL`);
     } catch (error) {
       res.status(500).json({ status: "err", message: error });
     }
@@ -44,11 +46,13 @@ router.post(
 );
 
 router.get("/:catergory", async (req, res) => {
+  console.log(`GET:@${req.params.catergory}`);
   try {
     const allNewMedia = await Media.find({ catergory: req.params.catergory });
     res.status(200).send(allNewMedia);
+    console.log(`GET:@${req.params.catergory}:successfull`);
   } catch (err) {
-    throw err;
+    res.status(500).json(err);
   }
 });
 

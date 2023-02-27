@@ -22,6 +22,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "3d" }
     );
     res.send(accessToken);
+    console.log(`POST req:@Login:  LOGIN SUCCESSFUL @${req.body.email}`);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -40,6 +41,7 @@ router.post("/register", async (req, res) => {
         process.env.PWD_KEY
       ).toString(),
     }).save();
+    console.log(`POST req:@Login: create SUCCESSFUL @${req.body.email}`);
     return res.status(200).send(newAuthor);
   } catch (err) {
     res.status(500).json(err);
