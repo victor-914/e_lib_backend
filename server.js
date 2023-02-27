@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://anatomy-gallery.vercel.app"],
   optionsSuccessStatus: 200,
 };
 
